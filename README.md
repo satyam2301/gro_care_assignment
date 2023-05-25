@@ -30,3 +30,7 @@ The YouTube Clone is a web application that allows users to browse and watch vid
    npm run dev
    ```
    This will launch the YouTube Clone website on http://localhost:{PortNo.} in your browser.
+
+   Or
+
+   You can visit on [Youtube Clone Link](https://gro-care-assignment-woad.vercel.app/ "Clone Youtube Website Link") to see the deployed version of the website.
