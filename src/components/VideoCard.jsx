@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useRef } from 'react';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import {
   Card,
@@ -11,8 +10,8 @@ import {
   CardActionArea,
 } from '@mui/material';
 
-const VideoCard = ({ video }) => {
-  const [isActive, setIsActive] = useState(false);
+const VideoCard = ({ video, isActive, onVideoPlayer, onVideoEnd }) => {
+  const videoRef = useRef(null);
 
   let profilePic;
   let arr = video?.creator?.pic.split('.');
@@ -23,9 +22,17 @@ const VideoCard = ({ video }) => {
   }
 
   const handleVideoPlayer = () => {
-    setIsActive(!isActive);
+    if (isActive) {
+      return;
+    }
+    onVideoPlayer(video.postId);
   };
 
+  const handleVideoEnd = () => {
+    if (isActive) {
+      onVideoEnd();
+    }
+  };
   return (
     <>
       <Card
@@ -52,6 +59,8 @@ const VideoCard = ({ video }) => {
                 controls
                 autoPlay
                 onClick={handleVideoPlayer}
+                onEnded={handleVideoEnd}
+                ref={videoRef}
               />
             </CardMedia>
           ) : (
