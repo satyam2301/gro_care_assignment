@@ -13,14 +13,6 @@ import {
 const VideoCard = ({ video, isActive, onVideoPlayer, onVideoEnd }) => {
   const videoRef = useRef(null);
 
-  let profilePic;
-  let arr = video?.creator?.pic.split('.');
-  if (arr[arr.length - 1] == 'bin') {
-    profilePic = AccountCircleIcon;
-  } else {
-    profilePic = video?.creator?.pic;
-  }
-
   const handleVideoPlayer = () => {
     if (isActive) {
       return;
@@ -39,6 +31,7 @@ const VideoCard = ({ video, isActive, onVideoPlayer, onVideoEnd }) => {
         sx={{
           width: { md: '320px', sm: '320px', xs: '100%' },
           height: { xs: '600px', sm: 'auto' },
+          borderRadius: '10px 10px',
         }}
       >
         <CardActionArea>
@@ -78,11 +71,22 @@ const VideoCard = ({ video, isActive, onVideoPlayer, onVideoEnd }) => {
             />
           )}
         </CardActionArea>
-        <CardContent sx={{ backgroundColor: '#1e1e1e', p: '8px' }}>
+        <CardContent
+          sx={{
+            backgroundColor: '#1e1e1e',
+            p: '8px',
+          }}
+        >
           <Stack direction="row">
             <Avatar
               alt={video.creator.name ? video.creator.name : 'Profile Picture'}
-              src={profilePic}
+              src={
+                video?.creator?.pic.endsWith('.bin') ? (
+                  <AccountCircleIcon />
+                ) : (
+                  video?.creator?.pic
+                )
+              }
               sx={{ marginRight: '6px' }}
             />
             <Stack>
